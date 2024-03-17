@@ -145,7 +145,7 @@ class CircularQueue {
       let i;
       let str = "";
       for (i = this.front; i !== this.rear; i = (i + 1) % this.capacity) {
-        str += this.items[i] + "";
+        str += this.items[i] + " ";
       }
       str += this.items[i];
       console.log(str);
@@ -153,10 +153,21 @@ class CircularQueue {
   }
 }
 
-const queue = new CircularQueue();
+const queue = new CircularQueue(5);
+
 queue.enqueue(10);
 queue.enqueue(20);
 queue.enqueue(30);
 queue.enqueue(40);
 queue.enqueue(50);
-queue.peek();
+
+// console.log(queue.isEmpty());
+// queue.print();
+// console.log(queue.isFull());
+// queue.dequeue();
+// queue.print();
+queue.dequeue();
+queue.print();
+
+queue.enqueue(70);
+queue.print();
