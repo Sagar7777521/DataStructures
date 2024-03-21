@@ -22,31 +22,6 @@ class LinkedList {
     return this.size;
   }
   // o(1) has constant time complexity
-  prepend(value) {
-    const node = new Node(value);
-    if (this.isEmpty()) {
-      this.head = node;
-    } else {
-      node.next = this.head;
-      this.head = node;
-    }
-    this.size++;
-  }
-
-  // O(n) has a linear time complexity
-  append(value) {
-    const node = new Node(value);
-    if (this.isEmpty()) {
-      this.head = node;
-    } else {
-      let prev = this.head;
-      while (prev.next) {
-        prev = prev.next;
-      }
-      prev.next = node;
-    }
-    this.size++;
-  }
 
   print() {
     if (this.isEmpty()) {
@@ -80,26 +55,6 @@ class LinkedList {
       this.size++;
     }
   }
-  removeFrom(index) {
-    if (index < 0 || index >= this.size) {
-      console.log("Entry is Invallid");
-      return;
-    }
-    let removeNode;
-    if (index === 0) {
-      removeNode = this.head;
-      this.head = this.head.next;
-    } else {
-      let prev = this.head;
-      for (let i = 0; i < index - 1; i++) {
-        prev = prev.next;
-      }
-      removeNode = prev.next;
-      prev.next = removeNode.next;
-    }
-    this.size--;
-    return removeNode.value;
-  }
 
   reverse() {
     let prev = null;
@@ -129,15 +84,62 @@ class LinkedList {
     }
     return -1;
   }
+
+  // ****************** Link List with Tail ****************
+
+  prepend(value) {
+    const node = new Node(value);
+    if (this.isEmpty()) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      node.next = this.head;
+      this.head = node;
+    }
+    this.size++;
+  }
+
+  append(value) {
+    const node = new Node(value);
+    if (this.isEmpty()) {
+      this.head = node;
+      this.tail = node;
+    } else {
+      this.tail.next = node;
+      this.tail = node;
+    }
+    this.size++;
+  }
+
+  removeFromFront() {
+    if (this.isEmpty()) {
+      throw Error("Cannot remove node from empty list");
+    }
+    const value = this.head.value;
+    this.head = this.head.next;
+    this.size--;
+    return value;
+  }
+
+  removeFromEnd() {
+    if (this.isEmpty()) {
+      throw Error("Cannot remove node from empty list");
+    }
+    const value = this.tail.value;
+    if (this.size === 1) {
+      this.head = null;
+      this.tail = null;
+    } else {
+      let prev = this.head;
+      while (prev.next !== this.tail) {
+        prev = prev.next;
+      }
+      prev.next = null;
+      this.tail = prev;
+    }
+    this.size--;
+    return value;
+  }
 }
 
-const list = new LinkedList();
-
-list.prepend(10);
-list.prepend(20);
-list.prepend(30);
-list.prepend(40);
-list.prepend(50);
-list.print();
-list.reverse();
-list.print();
+export default LinkedList;
