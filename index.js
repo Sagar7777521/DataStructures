@@ -176,3 +176,7 @@ class BinarySearchTree {
 // TODO level order and delete
 
 const bst = new BinarySearchTree();
+bst.insert(5);
+bst.insert(10);
+bst.insert(15);
+bst.printLevel(10);
